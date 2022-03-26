@@ -9,7 +9,7 @@ using namespace std;
 bool binarySearch(int a[],int low,int high,int key)
 {
     if(low > high)
-      return false;
+      return false;    / //key is not present
     int mid = low + (high -low)/2; // (low+high)/2 can lead to overflow of mid
     if(a[mid] == key)
        return true;

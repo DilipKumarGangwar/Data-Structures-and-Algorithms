@@ -20,7 +20,7 @@ bool binarySearch(int a[],int n,int key)
       else if(key < a[mid])
         high = mid - 1;  
    }
-   return false;  
+   return false;  //key is not present
 }
 
 main()
