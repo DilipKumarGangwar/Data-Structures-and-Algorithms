@@ -12,7 +12,7 @@ bool binarySearch(int a[],int n,int key)
    int low=0,high=n-1;
    while(low<=high)
    {
-      int mid = low + (high -low)/2; // (low+high)/2 can lead to overflow of mid
+      unsigned int mid = low + (high -low)/2; // (low+high)/2 can lead to overflow of mid
       if(a[mid] == key)
         return true;
       else if(key > a[mid])
