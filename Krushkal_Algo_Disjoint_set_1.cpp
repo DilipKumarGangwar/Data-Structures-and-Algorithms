@@ -53,7 +53,7 @@ int krushkal(vector<node> edges,int parent[],vector<node> &mst)
 
 bool comparator(node a, node b)
 {
-    return a.weight<b.weight;
+    return a.weight < b.weight;
 }
 int main(){
     int V,E,weight;

@@ -5,7 +5,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Jobs
+struct Jobs 
 {
     int jobid,deadline,profit;
 };
