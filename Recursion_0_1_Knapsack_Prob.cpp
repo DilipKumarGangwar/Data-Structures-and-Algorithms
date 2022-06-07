@@ -59,6 +59,7 @@ main()
     cout<<"Enter Knapsack Capacity: ";
     cin>>W;  
     cout<<"Max. profit Earned="<<knapSack(W,weight,value,n);
+	//or call below one
     //cout<<"Max. profit Earned="<<knapSack2(W,weight,value,n);
     return 0;
 }
