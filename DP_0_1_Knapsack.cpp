@@ -1,48 +1,53 @@
-// 0-1 Knapsack Problem (Using Recursion)
-//TC=O(2^n) 
-// SC=O(logn)  //stack space
+// 0-1 Knapsack Problem (Using DP - tabulation)
+//TC=O(n*W) 
+// SC=O(n*W)  //Space taken by Table
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int knapSackUtil(int W, int wt[], int val[], int i,int n) 
-{
-    if(i==n) // if no more items remaining
-        return 0;
-    if( W == 0) // if bag has become full 
-        return 0;
-    //if item weight > bag capacity, then discard that item and go with next item    
-    if(W-wt[i] < 0)    //or W < wt[i]
-        return knapSackUtil( W , wt,val,i+1,n) ;
-    //Include the item
-    int leftProfit = val[i]+ knapSackUtil( W -wt[i], wt,val,i+1,n);  
-    //Exclude the item
-    int rightProfit = knapSackUtil( W , wt,val,i+1,n);  
-    return max(leftProfit,rightProfit);
-}
-    
-//Function to return max value that can be put in knapsack of capacity W.
-int knapSack(int W, int wt[], int val[], int n) 
-{ 
-    // Your code here
-    return knapSackUtil(W,wt,val,0,n);
-}
 
 // This code also works fine
-int knapSack2(int W, int wt[], int val[],int n) 
+int knapSack(int W, int wt[], int val[],int n) 
+{
+    vector<vector<int>> dp(n+1,vector<int>(W+1));
+    //or int dp[n+1][W+1];
+
+    //initialise 0th row
+    for(int j=0;j<=W;j++)  
+       dp[0][j]=0;
+    //initialise 0th column
+    for(int i=0;i<=n;i++)
+       dp[i][0]=0; 
+    for(int i=1;i<=n;i++)
     {
-        if(n==0)
-           return 0;
-        if( W == 0)
-           return 0;
-        if(W-wt[n-1] < 0)
-           return knapSack2( W , wt,val,n-1) ;
-        int leftProfit = val[n-1]+ knapSack2( W -wt[n-1], wt,val,n-1);  
-       // cout<<"left= "<<leftProfit<<" ";
-        int rightProfit = knapSack2( W , wt,val,n-1);  
-       // cout<<"right= "<<rightProfit<<" ";
-        return max(leftProfit,rightProfit);
-    }
+        for(int j=1;j<=W;j++)
+        {
+            if(wt[i-1] > j)  //if item  weight is more than bag capacity
+               //exclude
+               dp[i][j]= dp[i-1][j];
+            else
+            {
+                int include = val[i-1] + dp[i-1][j-wt[i-1]];
+                int exclude = dp[i-1][j];
+                dp[i][j]= max(include,exclude);
+            }   
+             
+        }
+    } 
+     
+    cout<<"DP table:\n"; 
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=W;j++)
+        {
+            cout<<dp[i][j]<<" ";
+
+        } 
+      cout<<endl;
+    }  
+    return dp[n][W];
+    
+}
 
 main()
 {
@@ -59,6 +64,6 @@ main()
     cout<<"Enter Knapsack Capacity: ";
     cin>>W;  
     cout<<"Max. profit Earned="<<knapSack(W,weight,value,n);
-    //cout<<"Max. profit Earned="<<knapSack2(W,weight,value,n);
+    
     return 0;
 }
