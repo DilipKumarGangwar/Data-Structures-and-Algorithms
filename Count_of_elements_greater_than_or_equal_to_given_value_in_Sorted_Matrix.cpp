@@ -1,4 +1,4 @@
-// Find number of elements lesser than or equal to given value in Sorted Matrix
+// Find number of elements greater than or equal to given value in Sorted Matrix
 //TC = O(n+m)  
 //SC = O(1)
 
@@ -6,21 +6,21 @@
 #include<unistd.h>  //for sleep()
 using namespace std;
 
-int countLessThan(vector<vector<int>> &matrix,int element,int rows,int col)
+int countGreaterThan(vector<vector<int>> &matrix,int element,int rows,int col)
 {
     int i=0,j=col-1;
     int count = 0;
     while(i<rows && j>=0)
     {
-       if(matrix[i][j] <= element)
+       if(matrix[i][j] >= element)
        {
-           //count all elements in that ith row
-           count =  count + (j+1);
-           i++;  //go to next row now
+           //count all elements in that jth col
+           count =  count + (rows - i);
+           j--;  // go to previous col now
        }      
-       // if current ele is greater than asked element, then go to left side ele <--- in same row 
+       // if current ele is lesser than asked element, then go to next row (below ) 
        else
-          j--;   
+          i++;   
          
     }
     return count;
@@ -41,6 +41,6 @@ int main()
             cin>> matrix[i][j];
         }
     }
-    cout<<"Total Numbers less than "<<element<<" are : " <<countLessThan(matrix,element,rows,col);
+    cout<<"Total Numbers Greater than "<<element<<" are : " <<countGreaterThan(matrix,element,rows,col);
     return 0;
 }
