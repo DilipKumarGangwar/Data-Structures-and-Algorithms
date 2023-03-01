@@ -1,4 +1,5 @@
 // Find number of elements lesser than or equal to given value in Sorted Matrix
+// Matrix is row wise sorted and col wise sorted
 //TC = O(n+m)  
 //SC = O(1)
 
